@@ -24,3 +24,8 @@ app.include_router(auth.router)
 app.include_router(showTime.router)
 app.include_router(time.router)
 app.include_router(booking.router)
+
+
+@app.get("/")
+def root():
+    return {"message": "Welcome to my QA Cinema App Backend"}
