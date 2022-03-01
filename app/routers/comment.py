@@ -50,8 +50,6 @@ def delete_comment(
 
 
 @router.get("/", response_model=List[schemas.CommentOut])
-def get_comments(
-    db: Session = Depends(get_db), current_user: int = Depends(oauth2.get_current_user)
-):
+def get_comments(db: Session = Depends(get_db)):
     comments = db.query(models.Comment).all()
     return comments
