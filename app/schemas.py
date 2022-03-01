@@ -85,3 +85,11 @@ class Booking(BaseModel):
 class BookingOut(Booking):
     id: int
     movie: MovieOut
+
+
+class Comment(BaseModel):
+    id: int
+    movieTitle: str
+    customerName: str
+    rating: int
+    comment: str
