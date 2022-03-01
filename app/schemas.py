@@ -93,6 +93,9 @@ class Comment(BaseModel):
     rating: int
     comment: str
 
+    class Config:
+        orm_mode = True
+
 
 class CommentOut(Comment):
     id: int

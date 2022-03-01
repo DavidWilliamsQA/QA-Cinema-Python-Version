@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from . import models
 from .database import engine
-from .routers import movie, user, auth, showTime, time, booking
+from .routers import movie, user, auth, showTime, time, booking, comment
 
 app = FastAPI()
 
@@ -24,6 +24,7 @@ app.include_router(auth.router)
 app.include_router(showTime.router)
 app.include_router(time.router)
 app.include_router(booking.router)
+app.include_router(comment.router)
 
 
 @app.get("/")

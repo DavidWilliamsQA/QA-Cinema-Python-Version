@@ -7,14 +7,14 @@ from typing import List
 router = APIRouter(prefix="/comments", tags=["Comments"])
 
 
-@router.post("/", response_model=schemas.CommentOut)
+@router.post("/")
 def create_comment(comment: schemas.Comment, db: Session = Depends(get_db)):
     new_comment = models.Comment(**comment.dict())
 
     db.add(new_comment)
     db.commit()
     db.refresh(new_comment)
-    return new_comment
+    return {new_comment}
 
 
 @router.get("/{id}", response_model=schemas.CommentOut)
