@@ -88,8 +88,11 @@ class BookingOut(Booking):
 
 
 class Comment(BaseModel):
-    id: int
     movieTitle: str
     customerName: str
     rating: int
     comment: str
+
+
+class CommentOut(Comment):
+    id: int

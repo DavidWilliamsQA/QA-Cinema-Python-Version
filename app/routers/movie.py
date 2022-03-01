@@ -15,7 +15,6 @@ def create_movie(
     current_user: int = Depends(oauth2.get_current_user),
 ):
     new_movie = models.Movie(**movie.dict())
-    # print(new_movie)
 
     if current_user.admin != "true":
         raise HTTPException(
@@ -32,7 +31,6 @@ def create_movie(
 @router.get("/{id}", response_model=List[schemas.MovieOut])
 def get_movie(id: int, db: Session = Depends(get_db)):
     movie = db.query(models.Movie).filter(models.Movie.id == id).first()
-    # schemas.MovieOut.from_orm(movie).json()
     return {movie}
 
 
@@ -64,6 +62,4 @@ def delete_movie(
 @router.get("/", response_model=List[schemas.MovieOut])
 def get_movies(db: Session = Depends(get_db)):
     movies = db.query(models.Movie).all()
-    # schemas.MovieOut.from_orm(movies).json()
-    # movies_json = json.dumps(movies)
     return movies
