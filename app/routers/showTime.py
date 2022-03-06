@@ -13,7 +13,7 @@ def create_showtime(
     db: Session = Depends(get_db),
     current_user: int = Depends(oauth2.get_current_user),
 ):
-    if current_user.admin == "true":
+    if current_user.admin != True:
         new_time = models.ShowTime(**time.dict())
         db.add(new_time)
         db.commit()
@@ -40,7 +40,7 @@ def delete_showTime(
 ):
     time_query = db.query(models.ShowTime).filter(models.ShowTime.id == id)
 
-    if current_user.admin == "true":
+    if current_user.admin != True:
         if time_query.first() == None:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,

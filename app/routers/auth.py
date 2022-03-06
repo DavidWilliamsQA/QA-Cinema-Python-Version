@@ -16,7 +16,7 @@ def login(
     user_credentials: OAuth2PasswordRequestForm = Depends(),
     db: Session = Depends(get_db),
 ):
-    populate_db(db=db)
+    # populate_db(db=db)
 
     user = (
         db.query(models.User)

@@ -13,8 +13,7 @@ def create_user(
     db: Session = Depends(get_db),
     current_user: int = Depends(oauth2.get_current_user),
 ):
-
-    if current_user.admin != "true":
+    if current_user.admin != True:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             detail=f"You are not allowed to perform this action because you are not an admin",
