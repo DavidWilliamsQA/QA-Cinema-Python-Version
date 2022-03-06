@@ -22,6 +22,11 @@ def test_delete_comment(authorized_client, test_comments):
     assert res.status_code == 204
 
 
+def test_unauthorized_delete_comment(client, test_comments):
+    res = client.delete(f"/comments/{test_comments[1].id}")
+    assert res.status_code == 401
+
+
 def test_get_all_comments(client, test_comments):
     res = client.get("/comments/")
     assert res.status_code == 200

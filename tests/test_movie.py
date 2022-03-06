@@ -5,9 +5,21 @@ def test_create_movie(authorized_client):
     assert res.status_code == 200
 
 
+def test_unauthorized_create_movie(client):
+    res = client.post(
+        "/movies/", json={"status": "Test", "api_ID": 3, "rating": "3 stars"}
+    )
+    assert res.status_code == 401
+
+
 def test_delete_movie(authorized_client, test_movies):
     res = authorized_client.delete(f"/movies/{test_movies[0].id}")
     assert res.status_code == 204
+
+
+def test_unauthorized_delete_movie(client, test_movies):
+    res = client.delete(f"/movies/{test_movies[0].id}")
+    assert res.status_code == 401
 
 
 def test_get_movie_by_id(client, test_movies):

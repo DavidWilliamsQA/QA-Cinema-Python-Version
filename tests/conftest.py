@@ -139,6 +139,27 @@ def test_users(session):
 
 
 @pytest.fixture
+def test_movie_showtimes(session, test_showtime, test_movies):
+    showtimes_data = [
+        {"movie_id": 1, "showtime_id": 3},
+        {"movie_id": 4, "showtime_id": 1},
+        {"movie_id": 3, "showtime_id": 2},
+    ]
+
+    def create_movie_showtimes_model(showtimes):
+        return models.MovieShowTimes(**showtimes)
+
+    showtimes_map = map(create_movie_showtimes_model, showtimes_data)
+    showtimes = list(showtimes_map)
+
+    session.add_all(showtimes)
+    session.commit()
+
+    showtimes_query = session.query(models.MovieShowTimes).all()
+    return showtimes_query
+
+
+@pytest.fixture
 def test_comments(session):
     comment_data = [
         {

@@ -13,7 +13,7 @@ def delete_time(
     current_user: int = Depends(oauth2.get_current_user),
 ):
 
-    if current_user.admin != True:
+    if current_user.admin == True:
         time_query = (
             db.query(models.MovieShowTimes)
             .filter(models.MovieShowTimes.showtime_id == update.showtime_id)
@@ -25,7 +25,7 @@ def delete_time(
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail=f"time does not exist",
             )
-        print(time_query.delete(synchronize_session=False))
+        time_query.delete(synchronize_session=False)
         db.commit()
     else:
         raise HTTPException(
@@ -46,7 +46,7 @@ def set_showTime_to_movie(
 
     new_movie_showTime = models.MovieShowTimes(**update.dict())
 
-    if current_user.admin != True:
+    if current_user.admin == True:
         db.add(new_movie_showTime)
         db.commit()
         db.refresh(new_movie_showTime)
