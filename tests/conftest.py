@@ -118,6 +118,42 @@ def test_users(session):
 
 
 @pytest.fixture
+def test_comments(session):
+    comment_data = [
+        {
+            "movieTitle": "Test Title 1",
+            "customerName": "Jane Doe",
+            "rating": 4,
+            "comment": "Bad movie",
+        },
+        {
+            "movieTitle": "Test Title 2",
+            "customerName": "John Smith",
+            "rating": 6,
+            "comment": "Average movie",
+        },
+        {
+            "movieTitle": "Test Title 2",
+            "customerName": "Joshua Donner",
+            "rating": 10,
+            "comment": "Awesome movie bro",
+        },
+    ]
+
+    def create_comments_model(comments):
+        return models.Comment(**comments)
+
+    comment_map = map(create_comments_model, comment_data)
+    comments = list(comment_map)
+
+    session.add_all(comments)
+    session.commit()
+
+    comment_query = session.query(models.Comment).all()
+    return comment_query
+
+
+@pytest.fixture
 def test_bookings(session):
     booking_data = [
         {
