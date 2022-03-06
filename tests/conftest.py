@@ -97,6 +97,27 @@ def test_movies(session):
 
 
 @pytest.fixture
+def test_showtime(session):
+    showtime_data = [
+        {"time": "08/09/2021 12:30"},
+        {"time": "05/11/2020 10:30"},
+        {"time": "11/04/2020 15:30"},
+    ]
+
+    def create_showtime_model(showtime):
+        return models.ShowTime(**showtime)
+
+    showtime_map = map(create_showtime_model, showtime_data)
+    showtimes = list(showtime_map)
+
+    session.add_all(showtimes)
+    session.commit()
+
+    showtime_query = session.query(models.ShowTime).all()
+    return showtime_query
+
+
+@pytest.fixture
 def test_users(session):
     users_data = [
         {"email": "test1@test.com", "password": "password123", "admin": False},
